@@ -1,0 +1,186 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://202.28.94.50/ontologies/composition-profile.owl"
+    xmlns:j.0="http://202.28.94.50/owl-s/1.1/mod/Profile.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:daml="http://www.daml.org/2001/03/daml+oil#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:j.1="http://202.28.94.50/owl-s/1.1/mod/Process.owl#">
+  <owl:Ontology rdf:about="http://202.28.94.50/ontologies/composition-profile.owl#">
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local2/selectp_person.owl"/>
+    <owl:imports rdf:resource="http://202.28.94.50/ontologies/healthcare/mapping1.owl"/>
+    <owl:imports rdf:resource="http://202.28.94.50/owl-s/1.1/mod/Process.owl"/>
+    <owl:imports rdf:resource="http://202.28.94.50/owl-s/1.1/mod/Profile.owl"/>
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local1/selectPatientAE.owl"/>
+    <owl:imports rdf:resource="http://202.28.94.50/ontologies/sws-rules.owl"/>
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local2/selectp_ptdata.owl"/>
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local1/selectPatient.owl"/>
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local2/selectp_home.owl"/>
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local1/selectPeople.owl"/>
+  </owl:Ontology>
+  <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_IN_name">
+    <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#name"/>
+  </j.1:Input>
+  <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_IN_patient_code">
+    <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#patient_code"/>
+  </j.1:Input>
+  <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_IN_citizen_id">
+    <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#citizen_id"/>
+  </j.1:Input>
+  <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_IN_patient_code">
+    <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#patient_code"/>
+  </j.1:Input>
+  <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C3_IN_citizen_id">
+    <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#citizen_id"/>
+  </j.1:Input>
+  <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_OUT_given_name">
+    <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#given_name"/>
+  </j.1:Output>
+  <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_OUT_citizen_id">
+    <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#citizen_id"/>
+  </j.1:Output>
+  <j.0:Profile rdf:about="http://202.28.94.50/ontologies/composition-profile.owl#Composition1">
+    <j.0:has_process rdf:resource="http://202.28.94.50/ontologies/composition.owl#Composition1"/>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_OUT_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#name"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_IN_patient_code">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#patient_code"/>
+      </j.1:Input>
+    </j.0:hasInput>
+    <j.0:hasInput rdf:resource="http://202.28.94.50/ontologies/composition.owl#C1_IN_name"/>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_OUT_family_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#family_name"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_OUT_patient_code">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#patient_code"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_IN_citizen_id">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#citizen_id"/>
+      </j.1:Input>
+    </j.0:hasInput>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_OUT_citizen_id">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#citizen_id"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_OUT_given_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#given_name"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_IN_family_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#family_name"/>
+      </j.1:Input>
+    </j.0:hasInput>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_IN_given_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#given_name"/>
+      </j.1:Input>
+    </j.0:hasInput>
+  </j.0:Profile>
+  <j.0:Profile rdf:about="http://202.28.94.50/ontologies/composition-profile.owl#Composition2">
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_OUT_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#name"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasOutput rdf:resource="http://202.28.94.50/ontologies/composition.owl#C2_OUT_given_name"/>
+    <j.0:hasInput rdf:resource="http://202.28.94.50/ontologies/composition.owl#C2_IN_patient_code"/>
+    <j.0:hasInput rdf:resource="http://202.28.94.50/ontologies/composition.owl#C2_IN_citizen_id"/>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_IN_given_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#given_name"/>
+      </j.1:Input>
+    </j.0:hasInput>
+    <j.0:hasOutput rdf:resource="http://202.28.94.50/ontologies/composition.owl#C2_OUT_citizen_id"/>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_OUT_patient_code">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#patient_code"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_IN_family_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#family_name"/>
+      </j.1:Input>
+    </j.0:hasInput>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_OUT_family_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#family_name"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_IN_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#name"/>
+      </j.1:Input>
+    </j.0:hasInput>
+    <j.0:has_process rdf:resource="http://202.28.94.50/ontologies/composition.owl#Composition2"/>
+  </j.0:Profile>
+  <j.0:Profile rdf:about="http://202.28.94.50/ontologies/composition-profile.owl#Composition3">
+    <j.0:has_process rdf:resource="http://202.28.94.50/ontologies/composition.owl#Composition3"/>
+    <j.0:hasInput rdf:resource="http://202.28.94.50/ontologies/composition.owl#C3_IN_citizen_id"/>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C3_OUT_citizen_id">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#citizen_id"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+  </j.0:Profile>
+  <j.0:Profile rdf:about="http://202.28.94.50/ontologies/composition-profile.owl#Composition4">
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_OUT_citizen_id">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#citizen_id"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasInput rdf:resource="http://202.28.94.50/ontologies/composition.owl#C4_IN_patient_code"/>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_OUT_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#name"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_OUT_given_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#given_name"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_IN_given_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#given_name"/>
+      </j.1:Input>
+    </j.0:hasInput>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_OUT_patient_code">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#patient_code"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasOutput>
+      <j.1:Output rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_OUT_family_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#family_name"/>
+      </j.1:Output>
+    </j.0:hasOutput>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_IN_citizen_id">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#citizen_id"/>
+      </j.1:Input>
+    </j.0:hasInput>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_IN_family_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#family_name"/>
+      </j.1:Input>
+    </j.0:hasInput>
+    <j.0:has_process rdf:resource="http://202.28.94.50/ontologies/composition.owl#Composition4"/>
+    <j.0:hasInput>
+      <j.1:Input rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_IN_name">
+        <j.1:parameterType rdf:resource="http://202.28.94.50/ontologies/healthcare/general.owl#name"/>
+      </j.1:Input>
+    </j.0:hasInput>
+  </j.0:Profile>
+</rdf:RDF>

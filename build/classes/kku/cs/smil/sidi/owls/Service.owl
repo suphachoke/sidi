@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns="http://202.28.94.50/owl-s/1.1/mod/Service.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://202.28.94.50/owl-s/1.1/mod/Service.owl">
+  <owl:Ontology rdf:about="">
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    $Id: Service.owl,v 1.23 2004/05/12 06:08:50 martin Exp $
+  </owl:versionInfo>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Top level of OWL ontology for services.
+    Part of the OWL-S ontology; see http://www.daml.org/services/.  
+  </rdfs:comment>
+  </owl:Ontology>
+  <owl:Class rdf:ID="ServiceModel">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >See comments above</rdfs:comment>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ServiceModel</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ServiceProfile">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >See comments above</rdfs:comment>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ServiceProfile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ServiceGrounding">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >See comments above</rdfs:comment>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > 
+    A Grounding must be associated with exactly one service.
+    (Also, that service must have a model - but that constraint
+    isn't expressed here.)
+  </rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="supportedBy"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ServiceGrounding</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="Service">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Service</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="describedBy"/>
+        </owl:onProperty>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >See comments above</rdfs:comment>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > 
+    A service has 0 or 1 models.  (But note that a service with 0 models 
+    does not provide automated online access; it exists only for
+    discovery purposes; that is, it exists so as to provide a Profile.)
+  </rdfs:comment>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="isPresentedBy">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >deprecated form</rdfs:comment>
+    <owl:equivalentProperty>
+      <owl:ObjectProperty rdf:ID="presentedBy"/>
+    </owl:equivalentProperty>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#presentedBy">
+    <rdfs:domain rdf:resource="#ServiceProfile"/>
+    <rdfs:range rdf:resource="#Service"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="presents"/>
+    </owl:inverseOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > 
+    There are no cardinality restrictions on this property. 
+  </rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#describedBy">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="describes"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="#ServiceModel"/>
+    <rdfs:domain rdf:resource="#Service"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="supports">
+    <rdfs:range rdf:resource="#ServiceGrounding"/>
+    <rdfs:domain rdf:resource="#Service"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:about="#supportedBy"/>
+    </owl:inverseOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#describes">
+    <owl:inverseOf rdf:resource="#describedBy"/>
+    <rdfs:domain rdf:resource="#ServiceModel"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > 
+    There are no cardinality restrictions on this property. That is,
+    the same service model can be used by many different services.
+  </rdfs:comment>
+    <rdfs:range rdf:resource="#Service"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#supportedBy">
+    <rdfs:domain rdf:resource="#ServiceGrounding"/>
+    <owl:inverseOf rdf:resource="#supports"/>
+    <rdfs:range rdf:resource="#Service"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="provides">
+    <rdfs:range rdf:resource="#Service"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="providedBy"/>
+    </owl:inverseOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    OWL-S is completely agnostic at present about what kind of thing
+    provides a service (hence, no domain declared here).
+  </rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#presents">
+    <owl:inverseOf rdf:resource="#presentedBy"/>
+    <rdfs:domain rdf:resource="#Service"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > 
+    There are no cardinality restrictions on this property. 
+  </rdfs:comment>
+    <rdfs:range rdf:resource="#ServiceProfile"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="isDescribedBy">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >deprecated form</rdfs:comment>
+    <owl:equivalentProperty rdf:resource="#describedBy"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#providedBy">
+    <owl:inverseOf rdf:resource="#provides"/>
+    <rdfs:domain rdf:resource="#Service"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="isSupportedBy">
+    <owl:equivalentProperty rdf:resource="#supportedBy"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >deprecated form</rdfs:comment>
+  </owl:ObjectProperty>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.4.4, Build 579)  http://protege.stanford.edu -->

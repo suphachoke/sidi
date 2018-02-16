@@ -1,0 +1,1092 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:service="http://202.28.94.50/owl-s/1.1/mod/Service.owl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:expr="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#"
+    xmlns="http://202.28.94.50/owl-s/1.1/mod/Process.owl#"
+    xmlns:grounding="http://202.28.94.50/owl-s/1.1/mod/Grounding.owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:shadow-rdf="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://202.28.94.50/owl-s/1.1/mod/Process.owl">
+  <owl:Ontology rdf:about="">
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    $Id: Process.owl,v 1.134 2005/02/03 20:04:54 martin Exp $
+  </owl:versionInfo>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Upper-level OWL ontology for Processes.
+    Part of the DAML-S/OWL-S effort; see http://www.daml.org/services/owl-s/.
+  </rdfs:comment>
+  </owl:Ontology>
+  <owl:Ontology rdf:about="#"/>
+  <rdfs:Class rdf:about="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+  <rdfs:Class rdf:about="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+  <rdfs:Class rdf:about="http://202.28.94.50/owl-s/1.1/mod/Service.owl#ServiceModel"/>
+  <owl:Class rdf:ID="Local">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Parameter"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+     A Local parameter is a variable other than an input that is bound 
+    in a precondition of an Atomic Process for use in a result condition
+    or effect expression (or output expression) 
+  
+    THEY CANNOT BE USED IN COMPOSITE PROCESSES AT ALL. 
+    This avoids problems associated with state sharing among
+    asynchronously related sub processes. 
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Participant"/>
+  <owl:Class rdf:ID="ConditionalOutput">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > Deprecated as of version 1.1 </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Unordered">
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="Any-Order"/>
+    </owl:equivalentClass>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+     Deprecated.  As of version 1.1, renamed to Any-Order.
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ControlConstructList">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    OWL does not make any distinction between bags and lists.  We redefine
+    the ControlConstructList class, rather than use equivalentClass, so as
+    to make that distinction.
+  </rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#first"/>
+        </owl:onProperty>
+        <owl:allValuesFrom>
+          <owl:Class rdf:ID="ControlConstruct"/>
+        </owl:allValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#ControlConstructList"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#rest"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.w3.org/2003/11/swrl#Variable"/>
+  <owl:Class rdf:about="#ControlConstruct">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="timeout"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    A ControlConstruct can have at most one instance of timeout.
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="If-Then-Else">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    If-Then-Else Class is a ControlConstruct that consists of a Condition, a
+    then and an optional else process.
+  </rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="else"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#ControlConstruct"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="ifCondition"/>
+        </owl:onProperty>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="then"/>
+        </owl:onProperty>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Input">
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Output"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#Local"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Parameter"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Process">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    A Process can have at most one name, but names need not be unique.
+  </rdfs:comment>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > The most general class of processes </rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:ID="name"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://202.28.94.50/owl-s/1.1/mod/Service.owl#ServiceModel"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:ID="AtomicProcess"/>
+          <owl:Class rdf:ID="SimpleProcess"/>
+          <owl:Class rdf:ID="CompositeProcess"/>
+        </owl:unionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="Split-Join">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Here the process consists of concurrent execution of a bunch of
+    sub-processes.  with barrier synchroniztion. With Split and Split and
+    Join, we can define processes which have partial synchronization
+    (ex. split all and join some subset).
+  </rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom>
+          <owl:Class rdf:ID="ControlConstructBag"/>
+        </owl:allValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="components"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#ControlConstruct"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.isi.edu/~pan/damltime/time-entry.owl#IntervalThing"/>
+  <owl:Class rdf:ID="ValueOf">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    We allow for the possibility that another parameter of the same process is 
+    referenced, in which case this property is optional (hence maxCard)
+  </rdfs:comment>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Within a value form, or when using valueSource, references to
+    parameters of other processes require a tuple of (perform-ref,
+    param-ref, which we represent with ValueOf
+  </rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="fromProcess"/>
+        </owl:onProperty>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="theVar"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ValueOf</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ConditionalEffect">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > Deprecated as of version 1.1 </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >List</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This is intended to provide an OWL-DL compatible version of rdf:List</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Split">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Here the process consists of concurrent execution of a bunch of
+    sub-processes.  No further specification about waiting,
+    synchronization, etc. Similar to other ontologies' use of "Concurrent"
+    or "Parallel".  
+  </rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ControlConstruct"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#components"/>
+        </owl:onProperty>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#components"/>
+        </owl:onProperty>
+        <owl:allValuesFrom>
+          <owl:Class rdf:about="#ControlConstructBag"/>
+        </owl:allValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#Any-Order">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom>
+          <owl:Class rdf:about="#ControlConstructBag"/>
+        </owl:allValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#components"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#ControlConstruct"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#components"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Allows the process components (specified as a bag) to be executed in
+    some unspecified order but not concurrently. Execution and completion
+    of all components is required. The execution of processes in an
+    "Any-Order" construct cannot overlap, i.e.atomic processes cannot be
+    executed concurrently and composite processes cannot be interleaved.
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ProcessComponent">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > 
+    Deprecated as of v. 1.1.
+    Note: the old concept ProcessComponent is no longer needed. ControlConstruct
+    which includes Perform as a subclass should be used anywhere that 
+    ProcessComponent might have been used (which in the OWL-S 1.0 ontology 
+    was only in describing the relationship to temporal aspects)
+  </rdfs:comment>
+    <owl:equivalentClass rdf:resource="#ControlConstruct"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Output">
+    <owl:disjointWith rdf:resource="#Local"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Parameter"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Result">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Result</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="Sequence">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#components"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#ControlConstruct"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#ControlConstructList"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#components"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Sequence is defined as having a list of component processes that
+    specify the body. The Preconditions, parameters and effects of the
+    sequence are not defined in the minimal version.  An obvious extension
+    would be to define the effect of the sequence to be the union of the
+    effect of the individual members, and the parameters of the sequence
+    to be the union of the parameters of individual members. However, some
+    implementations may decide to use the last event's effects as the
+    effect of the sequence, etc.
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Choice">
+    <rdfs:subClassOf rdf:resource="#ControlConstruct"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#components"/>
+        </owl:onProperty>
+        <owl:allValuesFrom>
+          <owl:Class rdf:about="#ControlConstructBag"/>
+        </owl:allValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#components"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Choice calls for the execution of a single control construct from a given bag of control
+    constructs (given by the components property).   Any of the given control constructs
+    may be chosen for execution.
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#CompositeProcess">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="computedPrecondition"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="computedOutput"/>
+        </owl:onProperty>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#AtomicProcess"/>
+    </owl:disjointWith>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    A CompositeProcess can have at most one invocable property. Similarly for
+    computedInput, computedOutput, computedEffect, and
+    computedPrecondition.
+  </rdfs:comment>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Process"/>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:ID="composedOf"/>
+            </owl:onProperty>
+            <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+            >1</owl:cardinality>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="computedEffect"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="computedInput"/>
+        </owl:onProperty>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:ID="invocable"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    A CompositeProcess must have exactly 1 composedOf property.
+  </rdfs:comment>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SimpleProcess"/>
+    </owl:disjointWith>
+  </owl:Class>
+  <owl:Class rdf:about="#Parameter">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > 
+    This is the simplest way to relate parameters to 
+    SWRL (and DRS) variables.
+  </rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:minCardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="parameterType"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Perform">
+    <rdfs:subClassOf rdf:resource="#ControlConstruct"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="process"/>
+        </owl:onProperty>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    The PERFORM construct is how one references a process in a composite
+    process.  This is analogous to a function call in a program body. The
+    inputs to the PERFORM are described using the hasDataFrom property.
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ResultVar">
+    <owl:disjointWith rdf:resource="#Input"/>
+    <owl:disjointWith rdf:resource="#Output"/>
+    <owl:disjointWith rdf:resource="#Local"/>
+    <rdfs:subClassOf rdf:resource="#Parameter"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OutputBinding">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:ID="Binding"/>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:ID="toParam"/>
+            </owl:onProperty>
+            <owl:allValuesFrom rdf:resource="#Output"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    The subClassOf element is redundant, but we keep it because it is
+    helpful to some tools
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#ControlConstructBag">
+    <rdfs:subClassOf rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#ControlConstruct"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#first"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#rest"/>
+        </owl:onProperty>
+        <owl:allValuesFrom rdf:resource="#ControlConstructBag"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > A multiset of control constructs </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#SimpleProcess">
+    <owl:disjointWith>
+      <owl:Class rdf:about="#AtomicProcess"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf rdf:resource="#Process"/>
+  </owl:Class>
+  <owl:Class rdf:about="#AtomicProcess">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="hasClient"/>
+        </owl:onProperty>
+        <owl:hasValue>
+          <Participant rdf:ID="TheClient"/>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Process"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="performedBy"/>
+        </owl:onProperty>
+        <owl:hasValue>
+          <Participant rdf:ID="TheServer"/>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Repeat-Until">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="untilCondition"/>
+        </owl:onProperty>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="untilProcess"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Iterate"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > 
+    The Repeat-Until class specializes the ControlConstruct class where
+    the with properties "untilCondition" (range of type Condition) and
+    "untilProcess" (range of type Reapeat).  Repeat-Until does the
+    operation, tests for the condition, exits if it is true, and otherwise
+    loops.
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Repeat-While">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > 
+    The Repeat-While class specializes the ControlConstruct class
+    where the with properties "whileCondition" (range of type Condition)
+    and ``whileProcess'' (range of type Repeat).  Repeat-While tests for 
+    the condition, exits if it is false and does the operation if the
+    condition is true, then loops. 
+  </rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="whileProcess"/>
+        </owl:onProperty>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="whileCondition"/>
+        </owl:onProperty>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Iterate"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#Iterate">
+    <rdfs:subClassOf rdf:resource="#ControlConstruct"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Iterate is an "abstract" class, in the sense that it's not detailed
+    enough to be instantiated in a process model.  It's here to serve as
+    the common superclass of Repeat-While, Repeat-Until, and potentially
+    other specific iteration constructs that might be needed in the
+    future.
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="InputBinding">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Binding"/>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#toParam"/>
+            </owl:onProperty>
+            <owl:allValuesFrom rdf:resource="#Input"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    The subClassOf element is redundant, but we keep it because it is
+    helpful to some tools
+  </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Produce">
+    <rdfs:subClassOf rdf:resource="#ControlConstruct"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <owl:Class rdf:about="#Binding">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:ID="valueData"/>
+        </owl:onProperty>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#toParam"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:ID="valueSpecifier"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="valueSource"/>
+        </owl:onProperty>
+        <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:maxCardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="hasDataFrom">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    This property has as range a Binding object, which may either indicate
+    constants or values that are derived from the parameters (typically
+    outputs) of other performs in the SAME COMPOSITE PROCESS.
+  </rdfs:comment>
+    <rdfs:domain rdf:resource="#Perform"/>
+    <rdfs:range rdf:resource="#Binding"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasPrecondition">
+    <rdfs:range rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    <rdfs:domain rdf:resource="#Process"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="expand">
+    <owl:equivalentProperty>
+      <owl:ObjectProperty rdf:ID="expandsTo"/>
+    </owl:equivalentProperty>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This is a deprecated usage; expandsTo is preferred.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#whileCondition">
+    <rdfs:range rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    <rdfs:domain rdf:resource="#Repeat-While"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#timeout">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Interval of time allowed for completion of the process component (relative
+    to the start of process component execution).
+  </rdfs:comment>
+    <rdfs:domain rdf:resource="#ControlConstruct"/>
+    <rdfs:range rdf:resource="http://www.isi.edu/~pan/damltime/time-entry.owl#IntervalThing"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#computedPrecondition">
+    <rdfs:domain rdf:resource="#CompositeProcess"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    A computed precondition is a single expression that characterizes the
+    preconditions of a composite process, based on the preconditions
+    of its sub processes.
+  </rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#then">
+    <rdfs:range rdf:resource="#ControlConstruct"/>
+    <rdfs:domain rdf:resource="#If-Then-Else"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="producedBinding">
+    <rdfs:range rdf:resource="#OutputBinding"/>
+    <rdfs:domain rdf:resource="#Produce"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasResultVar">
+    <rdfs:range rdf:resource="#ResultVar"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hasResultVar</rdfs:label>
+    <rdfs:domain rdf:resource="#Result"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="inCondition">
+    <rdfs:range rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >inCondition</rdfs:label>
+    <rdfs:domain rdf:resource="#Result"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#parameterType">
+    <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#Parameter"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#toParam">
+    <rdfs:range rdf:resource="#Parameter"/>
+    <rdfs:domain rdf:resource="#Binding"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#components">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > 
+    The components propery of selected control construct subclasses holds
+    a specific arrangement of subprocesses or control constructs. 
+    The range is declared at each relevant subclass of ControlConstruct.
+  </rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Sequence"/>
+          <owl:Class rdf:about="#Split"/>
+          <owl:Class rdf:about="#Split-Join"/>
+          <owl:Class rdf:about="#Any-Order"/>
+          <owl:Class rdf:about="#Choice"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="collapse">
+    <owl:equivalentProperty>
+      <owl:ObjectProperty rdf:ID="collapsesTo"/>
+    </owl:equivalentProperty>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This is a deprecated usage; collapsesTo is preferred.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#valueSource">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    This is the simplest kind of data flow
+  </rdfs:comment>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >valueSource</rdfs:label>
+    <rdfs:range rdf:resource="#ValueOf"/>
+    <rdfs:domain rdf:resource="#Binding"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasParticipant">
+    <rdfs:domain rdf:resource="#Process"/>
+    <rdfs:range rdf:resource="#Participant"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="withOutput">
+    <rdfs:range rdf:resource="#OutputBinding"/>
+    <rdfs:domain rdf:resource="#Result"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >withOutput</rdfs:label>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#computedOutput">
+    <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:domain rdf:resource="#CompositeProcess"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    A computed output is a single expression that characterizes the
+    outputs required by a composite process, and the conditions under
+    which they are required.  See comment for computedInput.
+  </rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasClient">
+    <rdfs:domain rdf:resource="#Process"/>
+    <rdfs:subPropertyOf rdf:resource="#hasParticipant"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#computedInput">
+    <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:domain rdf:resource="#CompositeProcess"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    A computed input is a single expression that characterizes the
+    inputs required by a composite process, and the conditions under
+    which they are required.  This expression may, if needed, tie
+    together 2 or more inputs; for example, "either a credit card number,
+    or a bank account number must be given", or "if product
+    id starts with 'M', no shipping method need be given".
+    Additionally, this expression may refer to things other than inputs;
+    for example; "if user's credit rating is 'excellent' or better,
+    Social Security number is not required", or "if product weight
+    is less than 1 lb., no shipping myth did need be given".
+
+    A "computed" input is so named because it is meant to be computed
+    automatically by some tool, by inspecting the makeup of the composite 
+    process.
+
+    The language used to represent a computed input is not specified
+    here, and will be the subject of future work; hence, the use of Thing
+    as range.  It will require expressiveness greater than that of
+    OWL.
+  </rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#expandsTo">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:about="#collapsesTo"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="#CompositeProcess"/>
+    <rdfs:domain rdf:resource="#SimpleProcess"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasParameter">
+    <rdfs:domain rdf:resource="#Process"/>
+    <rdfs:range rdf:resource="#Parameter"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="realizedBy">
+    <rdfs:domain rdf:resource="#SimpleProcess"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="realizes"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="#AtomicProcess"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#untilCondition">
+    <rdfs:range rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+    <rdfs:domain rdf:resource="#Repeat-Until"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#whileProcess">
+    <rdfs:range rdf:resource="#ControlConstruct"/>
+    <rdfs:domain rdf:resource="#Repeat-While"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#composedOf">
+    <rdfs:domain rdf:resource="#CompositeProcess"/>
+    <rdfs:range rdf:resource="#ControlConstruct"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#computedEffect">
+    <rdfs:domain rdf:resource="#CompositeProcess"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    A computed effect is a single expression that characterizes the
+    effects of a composite process, based on the effects
+    of its sub processes. This is not well defined for conditional effects at present. 
+  </rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="parameterDataType">
+    <rdfs:domain rdf:resource="#Parameter"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#else">
+    <rdfs:range rdf:resource="#ControlConstruct"/>
+    <rdfs:domain rdf:resource="#If-Then-Else"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#process">
+    <rdfs:domain rdf:resource="#Perform"/>
+    <rdfs:range rdf:resource="#Process"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#fromProcess">
+    <rdfs:range rdf:resource="#Perform"/>
+    <rdfs:domain rdf:resource="#ValueOf"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#untilProcess">
+    <rdfs:range rdf:resource="#ControlConstruct"/>
+    <rdfs:domain rdf:resource="#Repeat-Until"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#realizes">
+    <rdfs:range rdf:resource="#SimpleProcess"/>
+    <rdfs:domain rdf:resource="#AtomicProcess"/>
+    <owl:inverseOf rdf:resource="#realizedBy"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="parameterClassType">
+    <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:domain rdf:resource="#Parameter"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#collapsesTo">
+    <rdfs:domain rdf:resource="#CompositeProcess"/>
+    <rdfs:range rdf:resource="#SimpleProcess"/>
+    <owl:inverseOf rdf:resource="#expandsTo"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#performedBy">
+    <rdfs:domain rdf:resource="#Process"/>
+    <rdfs:subPropertyOf rdf:resource="#hasParticipant"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasResult">
+    <rdfs:domain rdf:resource="#Process"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hasResult</rdfs:label>
+    <rdfs:range rdf:resource="#Result"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasOutput">
+    <rdfs:range rdf:resource="#Output"/>
+    <rdfs:subPropertyOf rdf:resource="#hasParameter"/>
+    <rdfs:domain rdf:resource="#Process"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#first">
+    <rdfs:domain rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The first item in the subject RDF list.</rdfs:comment>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >first</rdfs:label>
+    <rdfs:range rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasInput">
+    <rdfs:range rdf:resource="#Input"/>
+    <rdfs:subPropertyOf rdf:resource="#hasParameter"/>
+    <rdfs:domain rdf:resource="#Process"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#theVar">
+    <rdfs:domain rdf:resource="#ValueOf"/>
+    <rdfs:range rdf:resource="#Parameter"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasLocal">
+    <rdfs:range rdf:resource="#Local"/>
+    <rdfs:subPropertyOf rdf:resource="#hasParameter"/>
+    <rdfs:domain rdf:resource="#Process"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasEffect">
+    <rdfs:domain rdf:resource="#Result"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hasEffect</rdfs:label>
+    <rdfs:range rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Expression"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#ifCondition">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    > The if condition of an if-then-else</rdfs:comment>
+    <rdfs:domain rdf:resource="#If-Then-Else"/>
+    <rdfs:range rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#Condition"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#rest">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rest</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The rest of the subject RDF list after the first item.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+    <rdfs:domain rdf:resource="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#List"/>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="#valueData">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    valueData is for specifying constant (XML) data to be bound to a parameter. 
+  
+    Ideally, the valueData property would also be a subproperty of
+    valueSpecifier so that it would be one of the three possible
+    properties used to specify a value for a Binding. But as we cannot do
+    that, we treat it separately, but note that if it is used, the others
+    should not be.
+
+    For now, its range is any XML datatype. 
+  </rdfs:comment>
+    <rdfs:domain rdf:resource="#Binding"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >valueData</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="#invocable">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:domain rdf:resource="#CompositeProcess"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    Invocable is a flag that tells whether the CompositeProcess bottoms 
+    out in atomic processes.  (If so, it is "invocable".)
+  </rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="#name">
+    <rdfs:domain rdf:resource="#Process"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="valueForm">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >valueForm</rdfs:label>
+    <rdfs:domain rdf:resource="#Binding"/>
+    <rdfs:subPropertyOf>
+      <owl:DatatypeProperty rdf:about="#valueSpecifier"/>
+    </rdfs:subPropertyOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    valueForm is to be used to specify an pseudo-OWL description that is
+    legal OWL except that variables (including process parameters) and
+    ValueOf forms can appear as the object of properties where those
+    things violate the range of the property. The intent is that this be
+    interpreted as a pattern indicating the actual value of the binding
+    after the variables have been substituted for.
+    
+    A similar notation is used with valueFunction to indicate the
+    application of a locally (to the client) available function to convert
+    data (specified by variables or ValueOf) to a correct form.
+  </rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="#valueSpecifier">
+    <rdfs:domain rdf:resource="#Binding"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >valueSpecifier</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="valueType">
+    <rdfs:domain rdf:resource="#Binding"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >valueType</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    <rdfs:subPropertyOf rdf:resource="#valueSpecifier"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="valueFunction">
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"/>
+    <rdfs:domain rdf:resource="#Binding"/>
+    <rdfs:subPropertyOf rdf:resource="#valueSpecifier"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >valueFunction</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="parameterValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    If an Input parameter has a constant value, or (as in the case of
+    Output) is a description in terms of of some other process parameters,
+    then supply it here. Note that it must be interpreted after reading it
+    as an XMLLiteral.
+
+    In future, the interpretation of this literal may be extended to allow
+    more flexibility, such as functional expressions.
+  </rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"/>
+    <rdfs:domain rdf:resource="#Parameter"/>
+  </owl:DatatypeProperty>
+  <Perform rdf:ID="TheParentPerform">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    A special-purpose object, used to refer, at runtime, to the execution
+    instance of the enclosing composite process definition.
+  </rdfs:comment>
+  </Perform>
+  <Perform rdf:ID="ThisPerform">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >
+    A special-purpose object, used to refer, at runtime, to the execution
+    instance of the enclosing atomic process definition.
+  </rdfs:comment>
+  </Perform>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.4.4, Build 579)  http://protege.stanford.edu -->

@@ -1,0 +1,439 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY qfo "http://smiil.cs.kku.ac.th/ontologies/qfo#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://smiil.cs.kku.ac.th/ontologies/qfo#"
+     xml:base="http://smiil.cs.kku.ac.th/ontologies/qfo"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:qfo="http://smiil.cs.kku.ac.th/ontologies/qfo#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://smiil.cs.kku.ac.th/ontologies/qfo"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#value -->
+
+    <owl:AnnotationProperty rdf:about="&rdf;value"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#bindingFunction -->
+
+    <owl:ObjectProperty rdf:about="&qfo;bindingFunction">
+        <rdfs:domain rdf:resource="&qfo;Binder"/>
+        <rdfs:range rdf:resource="&qfo;Function"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#bindingInput -->
+
+    <owl:ObjectProperty rdf:about="&qfo;bindingInput">
+        <rdfs:domain rdf:resource="&qfo;Binder"/>
+        <rdfs:range rdf:resource="&rdf;Seq"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#bindingOutput -->
+
+    <owl:ObjectProperty rdf:about="&qfo;bindingOutput">
+        <rdfs:domain rdf:resource="&qfo;Binder"/>
+        <rdfs:range rdf:resource="&qfo;Variable"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#filteringFunction -->
+
+    <owl:ObjectProperty rdf:about="&qfo;filteringFunction">
+        <rdfs:domain rdf:resource="&qfo;Filter"/>
+        <rdfs:range rdf:resource="&qfo;Function"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#filteringInput -->
+
+    <owl:ObjectProperty rdf:about="&qfo;filteringInput">
+        <rdfs:domain rdf:resource="&qfo;Filter"/>
+        <rdfs:range rdf:resource="&rdf;Seq"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#hasStatement -->
+
+    <owl:ObjectProperty rdf:about="&qfo;hasStatement">
+        <rdfs:domain rdf:resource="&qfo;GraphPattern"/>
+        <rdfs:range rdf:resource="&rdf;Seq"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#hasSubGraph -->
+
+    <owl:ObjectProperty rdf:about="&qfo;hasSubGraph">
+        <rdfs:domain rdf:resource="&qfo;GraphPattern"/>
+        <rdfs:range rdf:resource="&rdf;Bag"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#object -->
+
+    <owl:ObjectProperty rdf:about="&qfo;object">
+        <rdfs:range rdf:resource="&qfo;Resource"/>
+        <rdfs:domain rdf:resource="&qfo;Triple"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#predicate -->
+
+    <owl:ObjectProperty rdf:about="&qfo;predicate">
+        <rdfs:range rdf:resource="&qfo;Resource"/>
+        <rdfs:domain rdf:resource="&qfo;Triple"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#subject -->
+
+    <owl:ObjectProperty rdf:about="&qfo;subject">
+        <rdfs:range rdf:resource="&qfo;Resource"/>
+        <rdfs:domain rdf:resource="&qfo;Triple"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#whereClause -->
+
+    <owl:ObjectProperty rdf:about="&qfo;whereClause">
+        <rdfs:range rdf:resource="&qfo;GraphPattern"/>
+        <rdfs:domain rdf:resource="&qfo;Query"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#_1 -->
+
+    <owl:ObjectProperty rdf:about="&rdf;_1"/>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#_2 -->
+
+    <owl:ObjectProperty rdf:about="&rdf;_2"/>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#_3 -->
+
+    <owl:ObjectProperty rdf:about="&rdf;_3"/>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#_4 -->
+
+    <owl:ObjectProperty rdf:about="&rdf;_4"/>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#_5 -->
+
+    <owl:ObjectProperty rdf:about="&rdf;_5"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Arithmetic -->
+
+    <owl:Class rdf:about="&qfo;Arithmetic">
+        <rdfs:subClassOf rdf:resource="&qfo;Operator"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Binder -->
+
+    <owl:Class rdf:about="&qfo;Binder">
+        <rdfs:subClassOf rdf:resource="&qfo;Statement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Boolean -->
+
+    <owl:Class rdf:about="&qfo;Boolean">
+        <rdfs:subClassOf rdf:resource="&qfo;Value"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Date -->
+
+    <owl:Class rdf:about="&qfo;Date">
+        <rdfs:subClassOf rdf:resource="&qfo;Value"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Filter -->
+
+    <owl:Class rdf:about="&qfo;Filter">
+        <rdfs:subClassOf rdf:resource="&qfo;Statement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#FilteringPattern -->
+
+    <owl:Class rdf:about="&qfo;FilteringPattern">
+        <rdfs:subClassOf rdf:resource="&qfo;GraphPattern"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Function -->
+
+    <owl:Class rdf:about="&qfo;Function"/>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#GraphPattern -->
+
+    <owl:Class rdf:about="&qfo;GraphPattern"/>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Logical -->
+
+    <owl:Class rdf:about="&qfo;Logical">
+        <rdfs:subClassOf rdf:resource="&qfo;Operator"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Node -->
+
+    <owl:Class rdf:about="&qfo;Node">
+        <rdfs:subClassOf rdf:resource="&qfo;Variable"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Number -->
+
+    <owl:Class rdf:about="&qfo;Number">
+        <rdfs:subClassOf rdf:resource="&qfo;Value"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Operator -->
+
+    <owl:Class rdf:about="&qfo;Operator">
+        <rdfs:subClassOf rdf:resource="&qfo;Function"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Query -->
+
+    <owl:Class rdf:about="&qfo;Query"/>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Resource -->
+
+    <owl:Class rdf:about="&qfo;Resource"/>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Statement -->
+
+    <owl:Class rdf:about="&qfo;Statement"/>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#String -->
+
+    <owl:Class rdf:about="&qfo;String">
+        <rdfs:subClassOf rdf:resource="&qfo;Value"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Test -->
+
+    <owl:Class rdf:about="&qfo;Test">
+        <rdfs:subClassOf rdf:resource="&qfo;Operator"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Triple -->
+
+    <owl:Class rdf:about="&qfo;Triple">
+        <rdfs:subClassOf rdf:resource="&qfo;Statement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Unary -->
+
+    <owl:Class rdf:about="&qfo;Unary">
+        <rdfs:subClassOf rdf:resource="&qfo;Operator"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Value -->
+
+    <owl:Class rdf:about="&qfo;Value">
+        <rdfs:subClassOf rdf:resource="&qfo;Variable"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Variable -->
+
+    <owl:Class rdf:about="&qfo;Variable">
+        <rdfs:subClassOf rdf:resource="&qfo;Resource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag -->
+
+    <owl:Class rdf:about="&rdf;Bag"/>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#Property -->
+
+    <owl:Class rdf:about="&rdf;Property">
+        <rdfs:subClassOf rdf:resource="&qfo;Resource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq -->
+
+    <owl:Class rdf:about="&rdf;Seq"/>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#Class -->
+
+    <owl:Class rdf:about="&rdfs;Class">
+        <rdfs:subClassOf rdf:resource="&qfo;Resource"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#Equal -->
+
+    <owl:NamedIndividual rdf:about="&qfo;Equal">
+        <rdf:type rdf:resource="&qfo;Test"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#GreaterThan -->
+
+    <owl:NamedIndividual rdf:about="&qfo;GreaterThan">
+        <rdf:type rdf:resource="&qfo;Test"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#GreaterThanOrEqual -->
+
+    <owl:NamedIndividual rdf:about="&qfo;GreaterThanOrEqual">
+        <rdf:type rdf:resource="&qfo;Test"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#LessThan -->
+
+    <owl:NamedIndividual rdf:about="&qfo;LessThan">
+        <rdf:type rdf:resource="&qfo;Test"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#LessThanOrEqual -->
+
+    <owl:NamedIndividual rdf:about="&qfo;LessThanOrEqual">
+        <rdf:type rdf:resource="&qfo;Test"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smiil.cs.kku.ac.th/ontologies/qfo#NotEqual -->
+
+    <owl:NamedIndividual rdf:about="&qfo;NotEqual">
+        <rdf:type rdf:resource="&qfo;Test"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

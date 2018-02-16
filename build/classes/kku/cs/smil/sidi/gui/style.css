@@ -1,0 +1,11 @@
+/* 
+    Document   : newCascadeStyleSheet
+    Created on : Jun 22, 2013, 3:39:36 PM
+    Author     : Administrator
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.root{
+    -fx-background-color:#fefefe;
+}
+

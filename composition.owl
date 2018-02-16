@@ -1,0 +1,339 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:j.0="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+    xmlns="http://202.28.94.50/ontologies/composition.owl"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:daml="http://www.daml.org/2001/03/daml+oil#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:j.1="http://202.28.94.50/owl-s/1.1/mod/Process.owl#">
+  <owl:Ontology rdf:about="http://202.28.94.50/ontologies/composition.owl#">
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local2/selectp_person.owl"/>
+    <owl:imports rdf:resource="http://202.28.94.50/owl-s/1.1/mod/Process.owl"/>
+    <owl:imports rdf:resource="http://202.28.94.50/ontologies/healthcare/mapping1.owl"/>
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local1/selectPatientAE.owl"/>
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local1/selectPeople.owl"/>
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local2/selectp_ptdata.owl"/>
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local1/selectPatient.owl"/>
+    <owl:imports rdf:resource="file:/G:/work/recent_work/ws/wsdl/local2/selectp_home.owl"/>
+    <owl:imports rdf:resource="http://202.28.94.50/ontologies/sws-rules.owl"/>
+  </owl:Ontology>
+  <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj1_Seq">
+    <j.1:components>
+      <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj1_List1">
+        <j.0:first>
+          <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj1_List1_Perform">
+            <j.1:process rdf:resource="http://61.19.108.39/wsengine/services/selectPeople.owl#selectPeople"/>
+          </j.1:Perform>
+        </j.0:first>
+      </j.1:ControlConstructList>
+    </j.1:components>
+  </j.1:Sequence>
+  <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C3_List1">
+    <j.0:first>
+      <j.1:Split-Join rdf:about="http://202.28.94.50/ontologies/composition.owl#C3_Seq1_SPJ">
+        <j.1:components>
+          <j.1:ControlConstructBag rdf:about="http://202.28.94.50/ontologies/composition.owl#C3_Seq1_Bag">
+            <j.0:first>
+              <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C3_Seq1_Spj1_Seq">
+                <j.1:components>
+                  <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C3_Seq1_Spj1_List1">
+                    <j.0:first>
+                      <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C3_Seq1_Spj1_List1_Perform">
+                        <j.1:process rdf:resource="http://61.19.108.37/kkuproject/services/selectp_home.owl#selectp_home"/>
+                      </j.1:Perform>
+                    </j.0:first>
+                  </j.1:ControlConstructList>
+                </j.1:components>
+              </j.1:Sequence>
+            </j.0:first>
+          </j.1:ControlConstructBag>
+        </j.1:components>
+      </j.1:Split-Join>
+    </j.0:first>
+  </j.1:ControlConstructList>
+  <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj2_Seq">
+    <j.1:components>
+      <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj2_List1">
+        <j.0:first>
+          <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj2_List1_Perform">
+            <j.1:process rdf:resource="http://61.19.108.37/kkuproject/services/selectp_ptdata.owl#selectp_ptdata"/>
+          </j.1:Perform>
+        </j.0:first>
+      </j.1:ControlConstructList>
+    </j.1:components>
+  </j.1:Sequence>
+  <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_List1">
+    <j.0:first>
+      <j.1:Split-Join rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_SPJ">
+        <j.1:components>
+          <j.1:ControlConstructBag rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Bag">
+            <j.0:first>
+              <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj1_Seq">
+                <j.1:components>
+                  <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj1_List1">
+                    <j.0:first>
+                      <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj1_List1_Perform">
+                        <j.1:process rdf:resource="http://61.19.108.39/wsengine/services/selectPeople.owl#selectPeople"/>
+                      </j.1:Perform>
+                    </j.0:first>
+                  </j.1:ControlConstructList>
+                </j.1:components>
+              </j.1:Sequence>
+            </j.0:first>
+            <j.0:rest rdf:resource="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj2_Seq"/>
+            <j.0:rest>
+              <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj3_Seq">
+                <j.1:components>
+                  <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj3_List1">
+                    <j.0:first>
+                      <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj3_List1_Perform">
+                        <j.1:process rdf:resource="http://61.19.108.39/wsengine/services/selectPatientAE.owl#selectPatientAE"/>
+                      </j.1:Perform>
+                    </j.0:first>
+                  </j.1:ControlConstructList>
+                </j.1:components>
+              </j.1:Sequence>
+            </j.0:rest>
+            <j.0:rest>
+              <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj4_Seq">
+                <j.1:components>
+                  <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj4_List1">
+                    <j.0:first>
+                      <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj4_List1_Perform">
+                        <j.1:process rdf:resource="http://61.19.108.39/wsengine/services/selectPatient.owl#selectPatient"/>
+                      </j.1:Perform>
+                    </j.0:first>
+                  </j.1:ControlConstructList>
+                </j.1:components>
+              </j.1:Sequence>
+            </j.0:rest>
+            <j.0:rest>
+              <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj5_Seq">
+                <j.1:components>
+                  <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj5_List1">
+                    <j.0:first>
+                      <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1_Spj5_List1_Perform">
+                        <j.1:process rdf:resource="http://61.19.108.37/kkuproject/services/selectp_person.owl#selectp_person"/>
+                      </j.1:Perform>
+                    </j.0:first>
+                  </j.1:ControlConstructList>
+                </j.1:components>
+              </j.1:Sequence>
+            </j.0:rest>
+          </j.1:ControlConstructBag>
+        </j.1:components>
+      </j.1:Split-Join>
+    </j.0:first>
+  </j.1:ControlConstructList>
+  <j.1:ControlConstructBag rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Bag">
+    <j.0:first rdf:resource="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj1_Seq"/>
+    <j.0:rest>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj2_Seq">
+        <j.1:components>
+          <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj2_List1">
+            <j.0:first>
+              <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj2_List1_Perform">
+                <j.1:process rdf:resource="http://61.19.108.37/kkuproject/services/selectp_ptdata.owl#selectp_ptdata"/>
+              </j.1:Perform>
+            </j.0:first>
+          </j.1:ControlConstructList>
+        </j.1:components>
+      </j.1:Sequence>
+    </j.0:rest>
+    <j.0:rest>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj3_Seq">
+        <j.1:components>
+          <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj3_List1">
+            <j.0:first>
+              <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj3_List1_Perform">
+                <j.1:process rdf:resource="http://61.19.108.39/wsengine/services/selectPatientAE.owl#selectPatientAE"/>
+              </j.1:Perform>
+            </j.0:first>
+          </j.1:ControlConstructList>
+        </j.1:components>
+      </j.1:Sequence>
+    </j.0:rest>
+    <j.0:rest>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj4_Seq">
+        <j.1:components>
+          <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj4_List1">
+            <j.0:first>
+              <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj4_List1_Perform">
+                <j.1:process rdf:resource="http://61.19.108.39/wsengine/services/selectPatient.owl#selectPatient"/>
+              </j.1:Perform>
+            </j.0:first>
+          </j.1:ControlConstructList>
+        </j.1:components>
+      </j.1:Sequence>
+    </j.0:rest>
+    <j.0:rest>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj5_Seq">
+        <j.1:components>
+          <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj5_List1">
+            <j.0:first>
+              <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Spj5_List1_Perform">
+                <j.1:process rdf:resource="http://61.19.108.37/kkuproject/services/selectp_person.owl#selectp_person"/>
+              </j.1:Perform>
+            </j.0:first>
+          </j.1:ControlConstructList>
+        </j.1:components>
+      </j.1:Sequence>
+    </j.0:rest>
+  </j.1:ControlConstructBag>
+  <j.1:Split-Join rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq2_SPJ">
+    <j.1:components>
+      <j.1:ControlConstructBag rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq2_Bag">
+        <j.0:first>
+          <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq2_Spj1_Seq">
+            <j.1:components>
+              <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq2_Spj1_List1">
+                <j.0:first>
+                  <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq2_Spj1_List1_Perform">
+                    <j.1:process rdf:resource="http://61.19.108.37/kkuproject/services/selectp_home.owl#selectp_home"/>
+                  </j.1:Perform>
+                </j.0:first>
+              </j.1:ControlConstructList>
+            </j.1:components>
+          </j.1:Sequence>
+        </j.0:first>
+      </j.1:ControlConstructBag>
+    </j.1:components>
+  </j.1:Split-Join>
+  <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj2_List1">
+    <j.0:first>
+      <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj2_List1_Perform">
+        <j.1:process rdf:resource="http://61.19.108.37/kkuproject/services/selectp_ptdata.owl#selectp_ptdata"/>
+      </j.1:Perform>
+    </j.0:first>
+  </j.1:ControlConstructList>
+  <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj4_List1">
+    <j.0:first>
+      <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj4_List1_Perform">
+        <j.1:process rdf:resource="http://61.19.108.39/wsengine/services/selectPatient.owl#selectPatient"/>
+      </j.1:Perform>
+    </j.0:first>
+  </j.1:ControlConstructList>
+  <j.1:ControlConstructBag rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Bag">
+    <j.0:first>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj1_Seq">
+        <j.1:components>
+          <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj1_List1">
+            <j.0:first>
+              <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj1_List1_Perform">
+                <j.1:process rdf:resource="http://61.19.108.39/wsengine/services/selectPeople.owl#selectPeople"/>
+              </j.1:Perform>
+            </j.0:first>
+          </j.1:ControlConstructList>
+        </j.1:components>
+      </j.1:Sequence>
+    </j.0:first>
+    <j.0:rest>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj2_Seq">
+        <j.1:components rdf:resource="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj2_List1"/>
+      </j.1:Sequence>
+    </j.0:rest>
+    <j.0:rest>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj3_Seq">
+        <j.1:components>
+          <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj3_List1">
+            <j.0:first>
+              <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj3_List1_Perform">
+                <j.1:process rdf:resource="http://61.19.108.39/wsengine/services/selectPatientAE.owl#selectPatientAE"/>
+              </j.1:Perform>
+            </j.0:first>
+          </j.1:ControlConstructList>
+        </j.1:components>
+      </j.1:Sequence>
+    </j.0:rest>
+    <j.0:rest>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj4_Seq">
+        <j.1:components rdf:resource="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj4_List1"/>
+      </j.1:Sequence>
+    </j.0:rest>
+    <j.0:rest>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj5_Seq">
+        <j.1:components>
+          <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj5_List1">
+            <j.0:first>
+              <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Spj5_List1_Perform">
+                <j.1:process rdf:resource="http://61.19.108.37/kkuproject/services/selectp_person.owl#selectp_person"/>
+              </j.1:Perform>
+            </j.0:first>
+          </j.1:ControlConstructList>
+        </j.1:components>
+      </j.1:Sequence>
+    </j.0:rest>
+  </j.1:ControlConstructBag>
+  <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1">
+    <j.1:components>
+      <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_List1">
+        <j.0:first>
+          <j.1:Split-Join rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_SPJ">
+            <j.1:components rdf:resource="http://202.28.94.50/ontologies/composition.owl#C2_Seq1_Bag"/>
+          </j.1:Split-Join>
+        </j.0:first>
+        <j.0:rest>
+          <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C2_List2">
+            <j.0:first rdf:resource="http://202.28.94.50/ontologies/composition.owl#C2_Seq2_SPJ"/>
+          </j.1:ControlConstructList>
+        </j.0:rest>
+      </j.1:ControlConstructList>
+    </j.1:components>
+  </j.1:Sequence>
+  <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq1">
+    <j.1:components>
+      <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_List1">
+        <j.0:first>
+          <j.1:Split-Join rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq1_SPJ">
+            <j.1:components>
+              <j.1:ControlConstructBag rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq1_Bag">
+                <j.0:first>
+                  <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq1_Spj1_Seq">
+                    <j.1:components>
+                      <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq1_Spj1_List1">
+                        <j.0:first>
+                          <j.1:Perform rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq1_Spj1_List1_Perform">
+                            <j.1:process rdf:resource="http://61.19.108.37/kkuproject/services/selectp_home.owl#selectp_home"/>
+                          </j.1:Perform>
+                        </j.0:first>
+                      </j.1:ControlConstructList>
+                    </j.1:components>
+                  </j.1:Sequence>
+                </j.0:first>
+              </j.1:ControlConstructBag>
+            </j.1:components>
+          </j.1:Split-Join>
+        </j.0:first>
+        <j.0:rest>
+          <j.1:ControlConstructList rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_List2">
+            <j.0:first>
+              <j.1:Split-Join rdf:about="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_SPJ">
+                <j.1:components rdf:resource="http://202.28.94.50/ontologies/composition.owl#C4_Seq2_Bag"/>
+              </j.1:Split-Join>
+            </j.0:first>
+          </j.1:ControlConstructList>
+        </j.0:rest>
+      </j.1:ControlConstructList>
+    </j.1:components>
+  </j.1:Sequence>
+  <j.1:CompositeProcess rdf:about="http://202.28.94.50/ontologies/composition.owl#Composition1">
+    <j.1:composedOf>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C1_Seq1">
+        <j.1:components rdf:resource="http://202.28.94.50/ontologies/composition.owl#C1_List1"/>
+      </j.1:Sequence>
+    </j.1:composedOf>
+  </j.1:CompositeProcess>
+  <j.1:CompositeProcess rdf:about="http://202.28.94.50/ontologies/composition.owl#Composition4">
+    <j.1:composedOf rdf:resource="http://202.28.94.50/ontologies/composition.owl#C4_Seq1"/>
+  </j.1:CompositeProcess>
+  <j.1:CompositeProcess rdf:about="http://202.28.94.50/ontologies/composition.owl#Composition2">
+    <j.1:composedOf rdf:resource="http://202.28.94.50/ontologies/composition.owl#C2_Seq1"/>
+  </j.1:CompositeProcess>
+  <j.1:CompositeProcess rdf:about="http://202.28.94.50/ontologies/composition.owl#Composition3">
+    <j.1:composedOf>
+      <j.1:Sequence rdf:about="http://202.28.94.50/ontologies/composition.owl#C3_Seq1">
+        <j.1:components rdf:resource="http://202.28.94.50/ontologies/composition.owl#C3_List1"/>
+      </j.1:Sequence>
+    </j.1:composedOf>
+  </j.1:CompositeProcess>
+</rdf:RDF>
